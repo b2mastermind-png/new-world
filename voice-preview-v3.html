@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NEW WORLD Voice Preview v3</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:18px 14px 36px}
+h1{font-size:22px;margin:0 0 6px}
+p{color:var(--muted);font-size:13px;line-height:1.58}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:15px;margin:12px 0}
+.btn{width:100%;min-height:56px;border:0;border-radius:16px;background:var(--accent);color:#fff;font-size:16px;font-weight:850;padding:12px 14px;text-align:left}
+.btn:active{transform:scale(.985)}
+.note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+.meta{font-size:11px;color:var(--muted);margin:8px 0 14px;padding:10px 12px;border-radius:12px;background:#eef2f7}
+.stop{margin-top:12px;background:#e5e7eb;color:#111827}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NEW WORLD 実音プレビュー v3</h1>
+  <p>BGMなし。人声を主役にして、SEは必要な場面だけ。オナラは🚽トイレ掃除と✨秘密クエストだけに絞りました。</p>
+  <div class="meta" id="voiceInfo">使用できるiPhone音声を確認中…</div>
+
+  <div class="card"><button class="btn" data-id="duo">🇫🇷 Duolingo</button><div class="note">フランス語でバカ丸出し。</div></div>
+  <div class="card"><button class="btn" data-id="english">🗣️ ChatGPT英会話</button><div class="note">チンピラ英語。</div></div>
+  <div class="card"><button class="btn" data-id="bbc">🎧 BBC 6 Minutes English</button><div class="note">関西のおっちゃん＋最後にティーカップSE。</div></div>
+  <div class="card"><button class="btn" data-id="book">📚 投資本</button><div class="note">関西弁＋最後にチャリーン。</div></div>
+  <div class="card"><button class="btn" data-id="sleep">🌙 睡眠</button><div class="note">関西のおかん風＋いびき。</div></div>
+  <div class="card"><button class="btn" data-id="trash">🗑️ ゴミ捨て</button><div class="note">英国チンピラ＋最後にゴミ箱ドスン。</div></div>
+  <div class="card"><button class="btn" data-id="toilet">🚽 トイレ掃除</button><div class="note">関西弁＋ここだけオナラ。</div></div>
+  <div class="card"><button class="btn" data-id="table">🧺 テーブル・キッチン</button><div class="note">関西ヤンキー風。</div></div>
+  <div class="card"><button class="btn" data-id="floor">🧹 リビング・廊下</button><div class="note">アホ実況＋掃除機SE。</div></div>
+  <div class="card"><button class="btn" data-id="sink">🧽 シンク周り</button><div class="note">関西の料理人＋キラリン。</div></div>
+  <div class="card"><button class="btn" data-id="secret">✨ 気になる場所1か所</button><div class="note">秘密クエスト＋ここだけ盛大なオナラ。</div></div>
+  <div class="card"><button class="btn" data-id="cleanBoss">🧹 掃除コンプリート</button><div class="note">ホコリ帝国ラスボス撃破。BGMなし、爆発SEのみ。</div></div>
+  <div class="card"><button class="btn" data-id="victory">🏆 完全勝利</button><div class="note">大げさ実況＋関西人乱入＋短い歓声。最後は静かに締め。</div></div>
+
+  <button class="btn stop" id="stopBtn">⏹ 再生停止</button>
+</div>
+
+<script>
+(() => {
+  const preferred={
+    "en-US":["Aaron","Evan","Nathan","Tom","Alex","Samantha"],
+    "en-GB":["Daniel","Oliver","Arthur","Serena","Kate"],
+    "fr-FR":["Thomas","Henri","Marie","Amélie","Audrey"],
+    "ja-JP":["Otoya","Hattori","Kyoko","O-ren","Siri"]
+  };
+  function voicesFor(lang){
+    const all=speechSynthesis.getVoices();
+    const exact=all.filter(v=>(v.lang||"").toLowerCase()===lang.toLowerCase());
+    return exact.length?exact:all.filter(v=>(v.lang||"").toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  }
+  function pickVoice(lang){
+    const pool=voicesFor(lang),prefs=preferred[lang]||[];
+    for(const n of prefs){const v=pool.find(x=>(x.name||"").toLowerCase().includes(n.toLowerCase()));if(v)return v}
+    return pool[0]||null;
+  }
+  function speakPart(p,done){
+    const u=new SpeechSynthesisUtterance(p.text);
+    u.lang=p.lang;u.rate=p.rate;u.pitch=p.pitch;u.volume=1;
+    const v=pickVoice(p.lang);if(v)u.voice=v;
+    u.onend=()=>setTimeout(done,p.pause||0);u.onerror=()=>setTimeout(done,p.pause||0);
+    speechSynthesis.speak(u);
+  }
+  function seq(parts,after){
+    speechSynthesis.cancel();let i=0;
+    function next(){if(i>=parts.length){if(after)after();return}speakPart(parts[i++],next)}
+    next();
+  }
+
+  let ctx=null;
+  function ac(){if(!ctx){const C=window.AudioContext||window.webkitAudioContext;if(C)ctx=new C()}if(ctx&&ctx.state==="suspended")ctx.resume();return ctx}
+  function tone(freq,dur=.12,amp=.08,end=null,type="sine",delay=0){
+    const c=ac();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type;
+    o.frequency.setValueAtTime(freq,c.currentTime+delay);if(end)o.frequency.exponentialRampToValueAtTime(end,c.currentTime+delay+dur);
+    g.gain.setValueAtTime(.0001,c.currentTime+delay);g.gain.exponentialRampToValueAtTime(amp,c.currentTime+delay+.01);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+delay+dur);
+    o.connect(g).connect(c.destination);o.start(c.currentTime+delay);o.stop(c.currentTime+delay+dur+.02)
+  }
+  function noise(dur=.2,amp=.05,delay=0){
+    const c=ac();if(!c)return;const n=Math.floor(c.sampleRate*dur),b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0);
+    for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+    const s=c.createBufferSource(),g=c.createGain(),f=c.createBiquadFilter();s.buffer=b;f.type="lowpass";f.frequency.value=1800;g.gain.value=amp;s.connect(f).connect(g).connect(c.destination);s.start(c.currentTime+delay)
+  }
+  const sfx={
+    cup(){tone(1800,.045,.045,null,"triangle");tone(2400,.035,.035,null,"triangle",.06)},
+    coin(){tone(1200,.06,.055,null,"triangle");tone(1700,.08,.05,null,"triangle",.07);tone(2100,.1,.045,null,"triangle",.15)},
+    snore(){tone(120,.5,.055,70,"sine");setTimeout(()=>tone(95,.55,.05,55,"sine"),650)},
+    bin(){tone(165,.14,.1,82,"square");tone(88,.28,.13,42,"sine",.08)},
+    fart(){tone(85,.18,.10,62,"square");tone(68,.22,.12,52,"square",.12);noise(.18,.045,.08)},
+    vacuum(){noise(.55,.055);tone(180,.55,.035,260,"sine")},
+    sparkle(){tone(1200,.05,.045,null,"triangle");tone(1700,.07,.04,null,"triangle",.07);tone(2300,.09,.035,null,"triangle",.15)},
+    explosion(){noise(.75,.12);tone(95,.55,.16,38,"sine")},
+    cheer(){for(let i=0;i<6;i++){tone(500+i*90,.08,.025,null,"triangle",i*.05)}}
+  };
+
+  const P=(text,lang="ja-JP",rate=.78,pitch=1,pause=250)=>({text,lang,rate,pitch,pause});
+  const scripts={
+    duo:[
+      P("BONJOUUUR!", "fr-FR", .72, 1.18, 260),
+      P("OUI OUI OUI! TRÈS BIEEEEN!", "fr-FR", .72, 1.30, 300),
+      P("BAGUETTE POWER! CROISSANT POWER!", "fr-FR", .76, 1.12, 260),
+      P("ALLEZ ALLEZ, ESPÈCE D’IDIOT!", "fr-FR", .72, .95, 300),
+      P("MAGNIFIQUE, PUTAIN!", "fr-FR", .70, 1.28, 0)
+    ],
+    english:[
+      P("YO!", "en-US", .72, 1.15, 220),
+      P("Look at this motherfucker speaking English!", "en-US", .75, .96, 320),
+      P("Damn! Fancy as shit!", "en-US", .72, 1.22, 280),
+      P("Keep talkin', fool!", "en-US", .72, .92, 260),
+      P("ENGLISH MODE, BITCH!", "en-US", .68, 1.25, 0)
+    ],
+    bbc:[
+      P("おぉー、6分終わったんかい！","ja-JP",.75,1.05,260),
+      P("やるやんけ！","ja-JP",.72,1.22,250),
+      P("BBCて！どこの貴族やねん！","ja-JP",.74,.95,280),
+      P("紅茶でも飲んどけぇ！","ja-JP",.70,1.16,0)
+    ],
+    book:[
+      P("おっ、また読んだんか！","ja-JP",.75,1.06,240),
+      P("賢なってまうやないか！","ja-JP",.73,1.18,260),
+      P("複利や！複利！","ja-JP",.68,.95,230),
+      P("金ぇ増えろぉぉぉ！！","ja-JP",.66,1.24,0)
+    ],
+    sleep:[
+      P("ちゃんと寝たんかい！","ja-JP",.74,1.05,260),
+      P("えらいやん！","ja-JP",.72,1.20,250),
+      P("ソファで寝落ちしてへんやろなぁ？","ja-JP",.72,.92,330),
+      P("ほな、もう一回寝とけ！","ja-JP",.70,1.10,0)
+    ],
+    trash:[
+      P("RUBBISH!","en-GB",.68,1.10,270),
+      P("You motherfucking piece of shit!","en-GB",.72,.92,360),
+      P("GET IN THE FUCKING BIN!","en-GB",.66,1.18,0)
+    ],
+    toilet:[
+      P("うわぁ、便所ピッカピカやんけ！","ja-JP",.73,1.10,260),
+      P("王座復活や！","ja-JP",.70,1.22,250),
+      P("ここでウンコしてええんか！？","ja-JP",.70,.98,0)
+    ],
+    table:[
+      P("おいおいおい！","ja-JP",.72,1.12,220),
+      P("テーブル見えとるやないか！","ja-JP",.72,.98,260),
+      P("奇跡や！","ja-JP",.68,1.25,220),
+      P("誰やここ片付けたヤツ！","ja-JP",.72,1.04,320),
+      P("……お前か。","ja-JP",.60,.82,0)
+    ],
+    floor:[
+      P("床ァァァ！！","ja-JP",.65,1.22,260),
+      P("床が出てきたぞぉぉ！","ja-JP",.68,1.14,260),
+      P("生きとったんかワレェ！","ja-JP",.70,.95,250),
+      P("ホコリ軍、全滅や！","ja-JP",.68,1.18,0)
+    ],
+    sink:[
+      P("うわっ、光っとる！","ja-JP",.72,1.12,230),
+      P("これシンクちゃうぞ、鏡や！","ja-JP",.72,.98,260),
+      P("顔映るやんけ！","ja-JP",.70,1.16,230),
+      P("男前やなぁー……知らんけど。","ja-JP",.66,.90,0)
+    ],
+    secret:[
+      P("誰にも頼まれてへんのに！","ja-JP",.72,1.05,240),
+      P("なんか知らんけど片付けた！","ja-JP",.72,1.14,250),
+      P("ヒマなんか！？","ja-JP",.68,.96,260),
+      P("……いや、えらいわ。","ja-JP",.62,.84,0)
+    ],
+    cleanBoss:[
+      P("な、なんやて！？","ja-JP",.70,1.12,240),
+      P("ワシのホコリ帝国がぁぁぁ！！","ja-JP",.64,.88,0)
+    ],
+    cleanBoss2:[
+      P("撃破ァァァ！！","ja-JP",.64,1.22,240),
+      P("掃除ボス、完全死亡！","ja-JP",.68,1.08,250),
+      P("家が……家になったぁぁぁ！！","ja-JP",.64,1.20,0)
+    ],
+    victory:[
+      P("皆さん……信じられますでしょうか。","ja-JP",.62,.92,520),
+      P("こいつ……全部やりやがった。","ja-JP",.62,.86,620),
+      P("NEW WORLD……","en-US",.58,.88,520),
+      P("COMPLEEEEETE VICTORYYYYYYYYY!!!","en-US",.56,1.20,400),
+      P("アホかぁぁぁ！やりすぎやろぉぉぉ！！","ja-JP",.64,1.24,0)
+    ],
+    victoryEnd:[
+      P("……完全勝利や。","ja-JP",.54,.78,0)
+    ]
+  };
+
+  const after={
+    bbc:()=>sfx.cup(),
+    book:()=>sfx.coin(),
+    sleep:()=>sfx.snore(),
+    trash:()=>sfx.bin(),
+    toilet:()=>{sfx.fart();setTimeout(()=>seq([P("あ。もう汚れたわ。","ja-JP",.62,.86,0)]),420)},
+    floor:()=>sfx.vacuum(),
+    sink:()=>sfx.sparkle(),
+    secret:()=>{sfx.fart();setTimeout(()=>seq([P("SECRET QUEST CLEAR!","en-US",.62,1.18,0)]),450)},
+    cleanBoss:()=>{sfx.explosion();setTimeout(()=>seq(scripts.cleanBoss2),700)},
+    victory:()=>{sfx.cheer();setTimeout(()=>seq(scripts.victoryEnd),850)}
+  };
+
+  document.querySelectorAll("[data-id]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      ac();
+      const id=btn.dataset.id;
+      seq(scripts[id],after[id]||null);
+    });
+  });
+  document.getElementById("stopBtn").addEventListener("click",()=>speechSynthesis.cancel());
+
+  function updateInfo(){
+    const ja=pickVoice("ja-JP"),us=pickVoice("en-US"),gb=pickVoice("en-GB"),fr=pickVoice("fr-FR");
+    document.getElementById("voiceInfo").textContent=`使用音声：日本語=${ja?ja.name:"未検出"} / US=${us?us.name:"未検出"} / UK=${gb?gb.name:"未検出"} / FR=${fr?fr.name:"未検出"}`;
+  }
+  updateInfo();speechSynthesis.onvoiceschanged=updateInfo;
+})();
+</script>
+</body>
+</html>
