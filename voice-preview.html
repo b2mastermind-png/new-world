@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NEW WORLD Voice Test v2</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:18px 14px 36px}
+h1{font-size:22px;margin:0 0 6px}
+p{color:var(--muted);font-size:13px;line-height:1.58}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:15px;margin:12px 0}
+.btn{width:100%;min-height:56px;border:0;border-radius:16px;background:var(--accent);color:#fff;font-size:16px;font-weight:850;padding:12px 14px;text-align:left}
+.btn:active{transform:scale(.985)}
+.note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+.meta{font-size:11px;color:var(--muted);margin:8px 0 14px;padding:10px 12px;border-radius:12px;background:#eef2f7}
+.stop{margin-top:12px;background:#e5e7eb;color:#111827}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NEW WORLD 人声テスト v2</h1>
+  <p>前回よりゆっくり。BGMなし。文章を短く分割して、間・抑揚・声の高さを変えます。方向性は「オープンワールド犯罪ゲームの、やたらテンション高いアホなチンピラ」寄り。</p>
+  <div class="meta" id="voiceInfo">使用できるiPhone音声を確認中…</div>
+
+  <div class="card">
+    <button class="btn" data-id="victory">🏆 完全勝利</button>
+    <div class="note">“YO! … You crazy motherfucker. … COMPLETE VICTORY! … THAT’S WHAT I’M TALKIN’ ABOUT!”</div>
+  </div>
+
+  <div class="card">
+    <button class="btn" data-id="clean">🧹 掃除コンプ</button>
+    <div class="note">“Aww, HELL NO! … The dirt boss is DEAD! … CLEAN AS FUCK, BABY!”</div>
+  </div>
+
+  <div class="card">
+    <button class="btn" data-id="trash">🗑️ ゴミ捨て</button>
+    <div class="note">“RUBBISH! … You motherfucking piece of shit! … GET IN THE BIN!” ＋ 最後にドスン</div>
+  </div>
+
+  <div class="card">
+    <button class="btn" data-id="duo">🇫🇷 Duolingo</button>
+    <div class="note">“BONJOUR, MOTHERFUCKER! … TRÈS BIEN! … OUI OUI! LET’S FUCKING GO!”</div>
+  </div>
+
+  <div class="card">
+    <button class="btn" data-id="english">🗣️ 英会話</button>
+    <div class="note">“YO! ENGLISH MODE, MOTHERFUCKER! … LOOK AT YOU TALKIN’ FANCY AND SHIT!”</div>
+  </div>
+
+  <div class="card">
+    <button class="btn" data-id="bbc">🎧 BBC</button>
+    <div class="note">英国寄り。“OI! … SIX BLOODY MINUTES DONE! … PROPER JOB, YOU MAGNIFICENT BASTARD!”</div>
+  </div>
+
+  <button class="btn stop" id="stopBtn">⏹ 再生停止</button>
+</div>
+
+<script>
+(() => {
+  const preferred = {
+    "en-US":["Aaron","Evan","Nathan","Tom","Alex","Samantha"],
+    "en-GB":["Daniel","Oliver","Arthur","Serena","Kate"],
+    "fr-FR":["Thomas","Henri","Marie","Amélie","Audrey"]
+  };
+
+  function voicesFor(lang){
+    const all=speechSynthesis.getVoices();
+    const exact=all.filter(v=>(v.lang||"").toLowerCase()===lang.toLowerCase());
+    return exact.length ? exact : all.filter(v=>(v.lang||"").toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+  }
+  function pickVoice(lang){
+    const pool=voicesFor(lang), prefs=preferred[lang]||[];
+    for(const name of prefs){
+      const v=pool.find(x=>(x.name||"").toLowerCase().includes(name.toLowerCase()));
+      if(v)return v;
+    }
+    return pool[0]||null;
+  }
+
+  function speakPart(text, lang, rate, pitch, pauseAfter, done){
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=lang;
+    u.rate=rate;
+    u.pitch=pitch;
+    u.volume=1;
+    const v=pickVoice(lang);
+    if(v)u.voice=v;
+    u.onend=()=>setTimeout(done, pauseAfter||0);
+    u.onerror=()=>setTimeout(done, pauseAfter||0);
+    speechSynthesis.speak(u);
+  }
+
+  function playSequence(parts, after){
+    speechSynthesis.cancel();
+    let i=0;
+    function next(){
+      if(i>=parts.length){ if(after)after(); return; }
+      const p=parts[i++];
+      speakPart(p.text,p.lang,p.rate,p.pitch,p.pause,next);
+    }
+    next();
+  }
+
+  let ctx=null;
+  function audio(){
+    if(!ctx){
+      const C=window.AudioContext||window.webkitAudioContext;
+      if(C)ctx=new C();
+    }
+    if(ctx&&ctx.state==="suspended")ctx.resume();
+    return ctx;
+  }
+  function binDrop(){
+    const c=audio(); if(!c)return;
+    function t(freq,dur,amp,end,type="sine",delay=0){
+      const o=c.createOscillator(),g=c.createGain();
+      o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+delay);
+      if(end)o.frequency.exponentialRampToValueAtTime(end,c.currentTime+delay+dur);
+      g.gain.setValueAtTime(.0001,c.currentTime+delay);
+      g.gain.exponentialRampToValueAtTime(amp,c.currentTime+delay+.01);
+      g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+delay+dur);
+      o.connect(g).connect(c.destination);o.start(c.currentTime+delay);o.stop(c.currentTime+delay+dur+.02);
+    }
+    t(165,.14,.11,82,"square");
+    t(88,.28,.14,42,"sine",.08);
+  }
+
+  const scripts = {
+    victory: [
+      {text:"YO!",lang:"en-US",rate:.78,pitch:1.20,pause:240},
+      {text:"You crazy motherfucker.",lang:"en-US",rate:.82,pitch:.88,pause:420},
+      {text:"COMPLETE VICTORY!",lang:"en-US",rate:.72,pitch:1.10,pause:260},
+      {text:"THAT'S WHAT I'M TALKIN' ABOUT!",lang:"en-US",rate:.84,pitch:1.28,pause:0}
+    ],
+    clean: [
+      {text:"Aww, HELL NO!",lang:"en-US",rate:.76,pitch:1.12,pause:300},
+      {text:"The dirt boss is DEAD!",lang:"en-US",rate:.80,pitch:.92,pause:360},
+      {text:"CLEAN AS FUCK, BABY!",lang:"en-US",rate:.78,pitch:1.25,pause:0}
+    ],
+    trash: [
+      {text:"RUBBISH!",lang:"en-GB",rate:.74,pitch:1.08,pause:300},
+      {text:"You motherfucking piece of shit!",lang:"en-GB",rate:.76,pitch:.88,pause:420},
+      {text:"GET IN THE BIN!",lang:"en-GB",rate:.70,pitch:1.18,pause:0}
+    ],
+    duo: [
+      {text:"BONJOUR, MOTHERFUCKER!",lang:"fr-FR",rate:.76,pitch:1.12,pause:300},
+      {text:"TRÈS BIEN!",lang:"fr-FR",rate:.72,pitch:1.28,pause:260},
+      {text:"OUI OUI!",lang:"fr-FR",rate:.78,pitch:1.38,pause:220},
+      {text:"LET'S FUCKING GO!",lang:"en-US",rate:.78,pitch:1.28,pause:0}
+    ],
+    english: [
+      {text:"YO!",lang:"en-US",rate:.76,pitch:1.18,pause:220},
+      {text:"ENGLISH MODE, MOTHERFUCKER!",lang:"en-US",rate:.76,pitch:1.05,pause:360},
+      {text:"LOOK AT YOU TALKIN' FANCY AND SHIT!",lang:"en-US",rate:.80,pitch:1.26,pause:0}
+    ],
+    bbc: [
+      {text:"OI!",lang:"en-GB",rate:.74,pitch:1.10,pause:250},
+      {text:"SIX BLOODY MINUTES DONE!",lang:"en-GB",rate:.76,pitch:.94,pause:360},
+      {text:"PROPER JOB, YOU MAGNIFICENT BASTARD!",lang:"en-GB",rate:.78,pitch:1.20,pause:0}
+    ]
+  };
+
+  document.querySelectorAll("[data-id]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      audio();
+      const id=btn.dataset.id;
+      playSequence(scripts[id], id==="trash" ? ()=>setTimeout(binDrop,80) : null);
+    });
+  });
+  document.getElementById("stopBtn").addEventListener("click",()=>speechSynthesis.cancel());
+
+  function updateVoiceInfo(){
+    const us=pickVoice("en-US"), gb=pickVoice("en-GB"), fr=pickVoice("fr-FR");
+    document.getElementById("voiceInfo").textContent=
+      `選択音声：US=${us?us.name:"未検出"} / UK=${gb?gb.name:"未検出"} / FR=${fr?fr.name:"未検出"}`;
+  }
+  updateVoiceInfo();
+  speechSynthesis.onvoiceschanged=updateVoiceInfo;
+})();
+</script>
+</body>
+</html>
