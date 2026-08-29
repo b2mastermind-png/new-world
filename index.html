@@ -100,9 +100,9 @@ input[type=file]{max-width:100%;margin-top:9px}
 @keyframes taskBounce{0%{transform:scale(1)}40%{transform:scale(1.035) rotate(-.6deg)}100%{transform:scale(1)}}
 .comic{
   position:absolute;left:50%;top:-14px;transform:translateX(-50%) translateY(8px) scale(.9);
-  max-width:82%;padding:8px 11px;border-radius:14px;background:#111827;color:white;
-  font-size:12px;font-weight:900;text-align:center;z-index:7;pointer-events:none;
-  opacity:0;animation:comic 1.8s ease-out forwards;box-shadow:0 7px 16px rgba(0,0,0,.16)
+  max-width:88%;padding:9px 12px;border-radius:14px;background:#111827;color:white;
+  font-size:13px;font-weight:950;text-align:center;z-index:7;pointer-events:none;
+  opacity:0;animation:comic 3.25s ease-out forwards;box-shadow:0 7px 16px rgba(0,0,0,.16)
 }
 .comic:after{
   content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);
@@ -110,9 +110,9 @@ input[type=file]{max-width:100%;margin-top:9px}
 }
 @keyframes comic{
   0%{opacity:0;transform:translateX(-50%) translateY(9px) scale(.88)}
-  18%{opacity:1;transform:translateX(-50%) translateY(0) scale(1.04)}
-  84%{opacity:1}
-  100%{opacity:0;transform:translateX(-50%) translateY(-10px) scale(.97)}
+  10%{opacity:1;transform:translateX(-50%) translateY(0) scale(1.04)}
+  86%{opacity:1;transform:translateX(-50%) translateY(-2px) scale(1)}
+  100%{opacity:0;transform:translateX(-50%) translateY(-9px) scale(.97)}
 }
 .spark{
   position:absolute;width:7px;height:7px;border-radius:50%;pointer-events:none;z-index:4;
@@ -138,7 +138,27 @@ input[type=file]{max-width:100%;margin-top:9px}
 .hero::before{content:"";position:absolute;inset:-90% -35%;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.11),transparent 30%);animation:heroSpin 9s linear infinite;pointer-events:none}.hero>*{position:relative;z-index:1}@keyframes heroSpin{to{transform:rotate(360deg)}}
 .flying{position:absolute;font-size:24px;pointer-events:none;z-index:9;animation:fly 1s cubic-bezier(.1,.65,.25,1) forwards}@keyframes fly{0%{opacity:0;transform:translate(0,18px) rotate(-18deg) scale(.65)}18%{opacity:1}100%{opacity:0;transform:translate(var(--fx),var(--fy)) rotate(420deg) scale(1.25)}}
 .burst-ring{position:absolute;left:50%;top:50%;width:28px;height:28px;border:4px solid rgba(245,158,11,.95);border-radius:50%;transform:translate(-50%,-50%) scale(.5);pointer-events:none;z-index:11;animation:ring .72s ease-out forwards}@keyframes ring{to{opacity:0;transform:translate(-50%,-50%) scale(8)}}
-.big-event{position:absolute;left:14px;right:14px;top:110px;display:grid;place-items:center;z-index:30;pointer-events:none;background:rgba(17,24,39,.20);backdrop-filter:blur(2px);border-radius:28px;opacity:0;animation:eventBg 2.15s ease-out forwards}.big-event .panel{max-width:88%;background:#111827;color:#fff;border:2px solid rgba(255,255,255,.2);border-radius:24px;padding:18px 20px;text-align:center;box-shadow:0 16px 38px rgba(0,0,0,.3);animation:eventPanel 2.15s cubic-bezier(.15,.9,.2,1.2) forwards}.big-event .emoji{font-size:44px;line-height:1}.big-event .headline{font-size:20px;font-weight:950;margin-top:7px}.big-event .caption{font-size:12px;opacity:.78;margin-top:5px}@keyframes eventBg{0%{opacity:0}12%,84%{opacity:1}100%{opacity:0}}@keyframes eventPanel{0%{transform:scale(.5) rotate(-7deg)}20%{transform:scale(1.08) rotate(2deg)}55%{transform:scale(1)}100%{transform:scale(.88);opacity:.2}}
+.big-event{
+  position:fixed;inset:0;display:grid;place-items:center;z-index:70;pointer-events:none;
+  background:rgba(17,24,39,.08);backdrop-filter:blur(1px);
+  opacity:0;animation:eventBg 3.75s ease-out forwards
+}
+.big-event .panel{
+  width:min(88vw,540px);margin:18px;background:#111827;color:#fff;
+  border:2px solid rgba(255,255,255,.22);border-radius:25px;padding:21px 20px;text-align:center;
+  box-shadow:0 16px 44px rgba(0,0,0,.34);
+  animation:eventPanel 3.75s cubic-bezier(.15,.9,.2,1.08) forwards
+}
+.big-event .emoji{font-size:50px;line-height:1}
+.big-event .headline{font-size:22px;font-weight:1000;margin-top:8px}
+.big-event .caption{font-size:14px;line-height:1.45;opacity:.9;margin-top:7px;font-weight:850}
+@keyframes eventBg{0%{opacity:0}8%,88%{opacity:1}100%{opacity:0}}
+@keyframes eventPanel{
+  0%{transform:scale(.54) rotate(-6deg);opacity:0}
+  12%{transform:scale(1.07) rotate(1.4deg);opacity:1}
+  25%,86%{transform:scale(1) rotate(0);opacity:1}
+  100%{transform:scale(.93);opacity:0}
+}
 
 </style>
 </head>
@@ -147,10 +167,10 @@ input[type=file]{max-width:100%;margin-top:9px}
   <section class="hero" id="hero">
     <div class="hero-top">
       <div>
-        <div class="title">🌍 NEW WORLD <span class="ver">v6</span></div>
+        <div class="title">🌍 NEW WORLD <span class="ver">v7</span></div>
         <div class="date" id="todayLabel"></div>
       </div>
-      <div class="sound-row"><button class="sound-btn" id="soundBtn" type="button" aria-pressed="true">🔊 ON</button><button class="sound-btn" id="victoryTestBtn" type="button">🏆 音</button><button class="sound-btn" id="cleanTestBtn" type="button">🧹 音</button></div>
+      <div class="sound-row"><button class="sound-btn" id="soundBtn" type="button" aria-pressed="true">🔊 ON</button><button class="sound-btn" id="victoryTestBtn" type="button">🏆 音</button><button class="sound-btn" id="cleanTestBtn" type="button">🧹 音</button><button class="sound-btn" id="seTestBtn" type="button">💨 SE</button></div>
     </div>
     <div class="stats">
       <div class="stat"><span class="num" id="victoryTotal">0</span><span class="label">🏆 完全勝利・累計</span></div>
@@ -162,7 +182,7 @@ input[type=file]{max-width:100%;margin-top:9px}
 
   <section class="card">
     <h2>今日のタスク</h2>
-    <div class="sub">4項目は今日分。高品質人声＋実音SE＋派手演出。音量はブースト済み。</div>
+    <div class="sub">4項目は今日分。高品質人声＋iPhone向けMP3実音SE＋画面固定の派手演出。</div>
     <div id="dailyTasks"></div>
     <div class="progress"><div class="bar" id="dailyBar"></div></div>
     <div class="status" id="todayStatus"></div>
@@ -204,7 +224,7 @@ input[type=file]{max-width:100%;margin-top:9px}
 
     <details>
       <summary>音声・SEクレジット</summary>
-      <p class="small">人声: HeyGen public voices. SE: Wikimedia Commons / PDSounds 等の Public Domain・CC0・CC BY/SA 素材。主な素材: Binging glass (PD), Applause ii (PD), Coins dropped in metallic moneybox 0 (PD), Joseph Sardin - Ronflements (CC0), Toilet flush2 (PD), Fart (CC BY-SA 4.0), Cupboarddoorclose (CC BY-SA 3.0), A vacuum cleaner manufactured by Miele, purchased 2013 (CC BY 4.0), Tapsinkwaternoise (CC BY-SA 3.0), Wooden desk drawer (PD), Explosion-LS100155 (PD), Old school bell 1 (PD).</p>
+      <p class="small">人声: HeyGen public voices. SE: Wikimedia Commons / PDSounds 等の Public Domain・CC0・CC BY/SA 素材（iPhone互換のMP3トランスコードを使用）。主な素材: Binging glass (PD), Applause ii (PD), Coins dropped in metallic moneybox 0 (PD), Joseph Sardin - Ronflements (CC0), Toilet flush2 (PD), Fart (CC BY-SA 4.0), Cupboarddoorclose (CC BY-SA 3.0), A vacuum cleaner manufactured by Miele, purchased 2013 (CC BY 4.0), Tapsinkwaternoise (CC BY-SA 3.0), Wooden desk drawer (PD), Explosion-LS100155 (PD), Old school bell 1 (PD).</p>
     </details>
     <details>
       <summary>バックアップから復元</summary>
@@ -214,7 +234,7 @@ input[type=file]{max-width:100%;margin-top:9px}
   </section>
 
   <div class="toast" id="toast" aria-live="polite"></div>
-  <div class="footer">NEW WORLD Dashboard v6 · HQ VOICE + REAL SE</div>
+  <div class="footer">NEW WORLD Dashboard v7 · HQ VOICE + iPHONE MP3 SE</div>
 </div>
 
 <script>
@@ -230,9 +250,9 @@ const CLEAN=[
   {id:"trash",icon:"🗑️",label:"ごみを集めて捨てる",comic:"RUBBISH! YOU MOTHERFUCKING PIECE OF SHIT!",sound:"trash",fly:["🗑️","💥","💨"],event:"GET IN THE BIN!"},
   {id:"toilet",icon:"🚽",label:"トイレを簡単に掃除する",comic:"便所ピッカピカやんけ！王座復活やぁ！",sound:"toilet",fly:["🚽","👑","💦"],event:"ROYAL THRONE RESTORED"},
   {id:"table",icon:"🧺",label:"テーブル・キッチンを片付ける",comic:"テーブル見えとるやないか！奇跡や！",sound:"table",fly:["🧺","📦","✨"],event:"SURFACE UNLOCKED"},
-  {id:"floor",icon:"🧹",label:"リビング・廊下の床を掃除する",comic:"ゆかァァァ！これで床上手やな！…床掃除の話やで！",sound:"floor",fly:["🧹","💨","😏"],event:"FLOOR BOSS DOWN"},
+  {id:"floor",icon:"🧹",label:"リビング・廊下の床を掃除する",comic:"ゆかァァァ！これで床上手（とこじょうず）やな！…床掃除の話やで！",sound:"floor",fly:["🧹","💨","😏"],event:"FLOOR BOSS DOWN"},
   {id:"sink",icon:"🧽",label:"キッチン・シンク周りを拭く",comic:"これシンクちゃうぞ、鏡や！男前やな！知らんけど！",sound:"sink",fly:["🧽","💧","✨"],event:"SINK SHINE MAX"},
-  {id:"oneplace",icon:"✨",label:"気になる場所を1か所整える",comic:"誰にも頼まれてへんのに！…いや、めっちゃ偉いやんけ！",sound:"secret",fly:["🎲","✨","🏅"],event:"SECRET QUEST CLEAR"}
+  {id:"oneplace",icon:"✨",label:"気になる場所を1か所整える",comic:"誰にも頼まれてへんのに！？…いやァァ！めっちゃ偉いやんけぇぇ！！",sound:"secret",fly:["🎲","✨","🏅"],event:"SECRET QUEST CLEAR"}
 ];
 const KEY="new_world_dashboard_v3";
 const defaultState={days:{},weeks:{},settings:{sound:true},meta:{duoBase:745,created:"2026-08-29"}};
@@ -274,24 +294,140 @@ function duoTotal(){return state.meta.duoBase+taskCount("duolingo")}
 function snapshot(){return {victory:victoryCount(),streak:currentStreak(),duo:duoTotal(),clean:cleanCount()}}
 
 function soundOn(){return state.settings.sound!==false}
-const VOICE_URLS={"duolingo":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/4b1de1582d2c477485ad2e0c2717f0ff/id=f06e1a62-9db3-4e88-8d15-94de0d7ac3a4.wav","english":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=a9dee879-90d1-4bee-a0d0-fdeae1c60245.wav","bbc":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=49804216-7307-45e1-8f09-96f10bf9f0de.wav","book":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=98c89ebb-3c80-4d9f-a5cd-5871ef23a3ed.wav","sleep":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=c57cc95a-91ca-4e85-9df6-43c6fc6086d6.wav","trash":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=99c0e4bc-d12c-478e-9deb-c379236c73e2.wav","toilet":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=fd33c480-01c1-40a9-8bef-5bd706b89ac4.wav","table":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=1c930785-a352-47fd-824c-2541a917cbc3.wav","floor":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=dab1b581-7748-4aab-8b00-2707fd4a0852.wav","sink":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=6a511596-07c0-4626-8d71-740bb67f6cce.wav","secret":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=a6a38fb2-f42f-4fff-9f3e-28fa0e6615c2.wav","cleanBoss":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=d63ff85e-06f4-4b4a-bd15-5d7b814f1045.wav","cleanHero":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=8b67caad-ab06-4fa9-99c6-b90514f0ff1a.wav","victoryMale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/06c816b952f14fa9b3a6c42aa151f731/id=88052343-93f9-4b68-bb4d-a71cd2afdd35.wav","victoryFemale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/79e05a1d6a81453a8c05e43cd4bc5960/id=d7a3a9de-5380-49ba-98a5-72a715f13dc2.wav"};
-const SE_URLS={"glass":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Binging_glass.ogg","applause":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Applause_ii.ogg","coins":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Coins_dropped_in_metallic_moneybox_0.ogg","snore":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Joseph_Sardin_-_Ronflements.oga","bin":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Cupboarddoorclose.ogg","flush":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Toilet_flush2.ogg","fart":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Fart.ogg","vacuum":"https://commons.wikimedia.org/wiki/Special:Redirect/file/A_vacuum_cleaner_manufactured_by_Miele,_purchased_2013.webm","sinkWater":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Tapsinkwaternoise.ogg","drawer":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Wooden_desk_drawer.ogg","explosion":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Explosion-LS100155.ogg","bell":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_school_bell_1.ogg"};
-const AUDIO={};let audioCtx=null,voiceGain=null,seGain=null,compressor=null;const graphNodes=new WeakMap();
-function makeAudio(url,kind){const a=new Audio(url);a.preload="auto";a.crossOrigin="anonymous";a.dataset.kind=kind;a.volume=1;return a}
-function prepareSounds(){Object.entries(VOICE_URLS).forEach(([k,u])=>AUDIO["v:"+k]=makeAudio(u,"voice"));Object.entries(SE_URLS).forEach(([k,u])=>AUDIO["s:"+k]=makeAudio(u,"se"))}
-async function ensureBoost(a){try{if(!audioCtx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;audioCtx=new C();voiceGain=audioCtx.createGain();seGain=audioCtx.createGain();compressor=audioCtx.createDynamicsCompressor();voiceGain.gain.value=1.65;seGain.gain.value=1.45;compressor.threshold.value=-12;compressor.knee.value=12;compressor.ratio.value=5;compressor.attack.value=.004;compressor.release.value=.18;voiceGain.connect(compressor);seGain.connect(compressor);compressor.connect(audioCtx.destination)}if(audioCtx.state==="suspended")await audioCtx.resume();if(!graphNodes.has(a)){const src=audioCtx.createMediaElementSource(a);src.connect(a.dataset.kind==="voice"?voiceGain:seGain);graphNodes.set(a,src)}}catch(e){a.volume=1}}
-function stopAllAudio(){Object.values(AUDIO).forEach(a=>{try{if(a._finish){a._finish();a._finish=null}a.pause();a.currentTime=0}catch(e){}})}
-function playClip(key,opts={}){if(!soundOn())return Promise.resolve();const a=AUDIO[key];if(!a)return Promise.resolve();const start=opts.start||0,maxMs=opts.maxMs||0,delay=opts.delay||0;return new Promise(resolve=>{let timer=null,done=false;const finish=()=>{if(done)return;done=true;if(timer)clearTimeout(timer);a.removeEventListener("ended",finish);a._finish=null;resolve()};a._finish=finish;setTimeout(async()=>{if(done)return;try{a.currentTime=start}catch(e){}await ensureBoost(a);a.addEventListener("ended",finish,{once:true});try{const p=a.play();if(p&&p.catch)await p.catch(()=>{})}catch(e){}if(maxMs)timer=setTimeout(()=>{try{a.pause()}catch(e){}finish()},maxMs)},delay)})}
-async function playTaskAudio(id){if(!soundOn())return;stopAllAudio();await playClip("v:"+id);if(id==="duolingo")await playClip("s:glass",{maxMs:700});else if(id==="english")await playClip("s:applause",{maxMs:900});else if(id==="bbc")await playClip("s:glass",{maxMs:700});else if(id==="book")await playClip("s:coins",{maxMs:1800});else if(id==="sleep")await playClip("s:snore",{maxMs:2600});else if(id==="trash")await playClip("s:bin",{maxMs:500});else if(id==="toilet"){await playClip("s:flush",{maxMs:2600});await playClip("s:fart",{maxMs:1500})}else if(id==="table")await playClip("s:bin",{maxMs:500});else if(id==="floor")await playClip("s:vacuum",{maxMs:2300});else if(id==="sink")await playClip("s:sinkWater",{maxMs:1900});else if(id==="secret")await playClip("s:drawer",{maxMs:1400})}
-async function playCleaningComplete(){if(!soundOn())return;stopAllAudio();megaEvent("clean");await playClip("v:cleanBoss");await playClip("s:explosion",{maxMs:1700});await playClip("v:cleanHero");await playClip("s:applause",{maxMs:1600})}
-async function playCompleteVictory(){if(!soundOn())return;stopAllAudio();megaEvent("victory");await playClip("s:bell",{maxMs:950});await playClip("v:victoryMale");await playClip("v:victoryFemale");await playClip("s:applause",{maxMs:2800})}
+const VOICE_URLS={"duolingo":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/4b1de1582d2c477485ad2e0c2717f0ff/id=f06e1a62-9db3-4e88-8d15-94de0d7ac3a4.wav","english":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=a5fb24cf-985f-4efb-8311-9a8b817c04f4.wav","bbc":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=49804216-7307-45e1-8f09-96f10bf9f0de.wav","book":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=98c89ebb-3c80-4d9f-a5cd-5871ef23a3ed.wav","sleep":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=c57cc95a-91ca-4e85-9df6-43c6fc6086d6.wav","trash":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=99c0e4bc-d12c-478e-9deb-c379236c73e2.wav","toilet":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=fd33c480-01c1-40a9-8bef-5bd706b89ac4.wav","table":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=1c930785-a352-47fd-824c-2541a917cbc3.wav","floor":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=d2ade543-dce8-4589-b020-111416f3782a.wav","sink":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=6a511596-07c0-4626-8d71-740bb67f6cce.wav","secret":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=af9b5988-a1b2-4ef1-b72b-75bd78f22e50.wav","cleanBoss":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=d63ff85e-06f4-4b4a-bd15-5d7b814f1045.wav","cleanHero":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=8c057fe4-87b3-44a1-b6cb-551ef45d5257.wav","victoryMale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/06c816b952f14fa9b3a6c42aa151f731/id=88052343-93f9-4b68-bb4d-a71cd2afdd35.wav","victoryFemale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/79e05a1d6a81453a8c05e43cd4bc5960/id=d7a3a9de-5380-49ba-98a5-72a715f13dc2.wav"};
+const SE_URLS={"glass":"https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/Binging_glass.ogg/Binging_glass.ogg.mp3","applause":"https://upload.wikimedia.org/wikipedia/commons/transcoded/0/09/Applause_ii.ogg/Applause_ii.ogg.mp3","coins":"https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e6/Coins_dropped_in_metallic_moneybox_0.ogg/Coins_dropped_in_metallic_moneybox_0.ogg.mp3","snore":"https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fe/Joseph_Sardin_-_Ronflements.oga/Joseph_Sardin_-_Ronflements.oga.mp3","bin":"https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Cupboarddoorclose.ogg/Cupboarddoorclose.ogg.mp3","flush":"https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/Toilet_flush2.ogg/Toilet_flush2.ogg.mp3","fart":"https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/Fart.ogg/Fart.ogg.mp3","vacuum":"https://upload.wikimedia.org/wikipedia/commons/transcoded/7/78/A_vacuum_cleaner_manufactured_by_Miele,_purchased_2013.webm/A_vacuum_cleaner_manufactured_by_Miele,_purchased_2013.webm.mp3","sinkWater":"https://upload.wikimedia.org/wikipedia/commons/transcoded/1/10/Tapsinkwaternoise.ogg/Tapsinkwaternoise.ogg.mp3","drawer":"https://upload.wikimedia.org/wikipedia/commons/transcoded/6/67/Wooden_desk_drawer.ogg/Wooden_desk_drawer.ogg.mp3","explosion":"https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b9/Explosion-LS100155.ogg/Explosion-LS100155.ogg.mp3","bell":"https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9a/Old_school_bell_1.ogg/Old_school_bell_1.ogg.mp3"};
+const AUDIO={};
+let audioCtx=null,voiceGain=null,compressor=null;
+const graphNodes=new WeakMap();
+
+function makeAudio(url,kind){
+  const a=new Audio();
+  a.preload="auto";
+  // Important: SE is played directly. This avoids iPhone/Safari CORS + WebAudio silence.
+  if(kind==="voice")a.crossOrigin="anonymous";
+  a.src=url;
+  a.dataset.kind=kind;
+  a.volume=1;
+  return a
+}
+function prepareSounds(){
+  Object.entries(VOICE_URLS).forEach(([k,u])=>AUDIO["v:"+k]=makeAudio(u,"voice"));
+  Object.entries(SE_URLS).forEach(([k,u])=>AUDIO["s:"+k]=makeAudio(u,"se"))
+}
+async function ensureBoost(a){
+  if(a.dataset.kind==="se")return;
+  try{
+    if(!audioCtx){
+      const C=window.AudioContext||window.webkitAudioContext;
+      if(!C)return;
+      audioCtx=new C();
+      voiceGain=audioCtx.createGain();
+      compressor=audioCtx.createDynamicsCompressor();
+      voiceGain.gain.value=1.95;
+      compressor.threshold.value=-15;
+      compressor.knee.value=10;
+      compressor.ratio.value=6;
+      compressor.attack.value=.003;
+      compressor.release.value=.16;
+      voiceGain.connect(compressor);
+      compressor.connect(audioCtx.destination)
+    }
+    if(audioCtx.state==="suspended")await audioCtx.resume();
+    if(!graphNodes.has(a)){
+      const src=audioCtx.createMediaElementSource(a);
+      src.connect(voiceGain);
+      graphNodes.set(a,src)
+    }
+  }catch(e){
+    a.volume=1
+  }
+}
+function stopAllAudio(){
+  Object.values(AUDIO).forEach(a=>{
+    try{
+      if(a._finish){a._finish();a._finish=null}
+      a.pause();a.currentTime=0
+    }catch(e){}
+  })
+}
+function playClip(key,opts={}){
+  if(!soundOn())return Promise.resolve();
+  const a=AUDIO[key];
+  if(!a)return Promise.resolve();
+  const start=opts.start||0,maxMs=opts.maxMs||0,delay=opts.delay||0;
+  return new Promise(resolve=>{
+    let timer=null,done=false;
+    const finish=()=>{
+      if(done)return;
+      done=true;
+      if(timer)clearTimeout(timer);
+      a.removeEventListener("ended",finish);
+      a.removeEventListener("error",finish);
+      a._finish=null;
+      resolve()
+    };
+    a._finish=finish;
+    setTimeout(async()=>{
+      if(done)return;
+      try{a.currentTime=start}catch(e){}
+      await ensureBoost(a);
+      a.addEventListener("ended",finish,{once:true});
+      a.addEventListener("error",finish,{once:true});
+      try{
+        const p=a.play();
+        if(p&&p.catch)await p.catch(()=>finish())
+      }catch(e){finish();return}
+      if(maxMs)timer=setTimeout(()=>{
+        try{a.pause()}catch(e){}
+        finish()
+      },maxMs)
+    },delay)
+  })
+}
+async function playTaskAudio(id){
+  if(!soundOn())return;
+  stopAllAudio();
+  await playClip("v:"+id);
+  if(id==="duolingo")await playClip("s:glass",{maxMs:900});
+  else if(id==="english")await playClip("s:applause",{maxMs:1200});
+  else if(id==="bbc")await playClip("s:glass",{maxMs:900});
+  else if(id==="book")await playClip("s:coins",{maxMs:2100});
+  else if(id==="sleep")await playClip("s:snore",{maxMs:3000});
+  else if(id==="trash")await playClip("s:bin",{maxMs:900});
+  else if(id==="toilet"){
+    await playClip("s:flush",{maxMs:2600});
+    await playClip("s:fart",{maxMs:1500})
+  }
+  else if(id==="table")await playClip("s:bin",{maxMs:900});
+  else if(id==="floor")await playClip("s:vacuum",{maxMs:2500});
+  else if(id==="sink")await playClip("s:sinkWater",{maxMs:2200});
+  else if(id==="secret")await playClip("s:drawer",{maxMs:1600})
+}
+async function playCleaningComplete(){
+  if(!soundOn())return;
+  stopAllAudio();
+  megaEvent("clean");
+  await playClip("v:cleanBoss");
+  await playClip("s:explosion",{maxMs:1700});
+  await playClip("v:cleanHero");
+  await playClip("s:applause",{maxMs:2200})
+}
+async function playCompleteVictory(){
+  if(!soundOn())return;
+  stopAllAudio();
+  megaEvent("victory");
+  await playClip("s:bell",{maxMs:1200});
+  await playClip("v:victoryMale");
+  await playClip("v:victoryFemale");
+  await playClip("s:applause",{maxMs:3200})
+}
 function vibrate(pattern){if("vibrate"in navigator)navigator.vibrate(pattern)}
 
 function floatFx(btn,delta,t){
   btn.classList.remove("task-bounce");void btn.offsetWidth;btn.classList.add("task-bounce");
   const f=document.createElement("span");f.className="float-score "+(delta>0?"plus":"minus");f.textContent=delta>0?"+1":"−1";btn.appendChild(f);setTimeout(()=>f.remove(),850);
   if(delta>0){
-    const c=document.createElement("div");c.className="comic";c.textContent=t.comic;btn.appendChild(c);setTimeout(()=>c.remove(),1900);
+    const c=document.createElement("div");c.className="comic";c.textContent=t.comic;btn.appendChild(c);setTimeout(()=>c.remove(),3350);
     for(let i=0;i<13;i++){
       const p=document.createElement("span");p.className="spark";const a=Math.PI*2*i/13,dist=30+Math.random()*28;p.style.right="55px";p.style.top="26px";
       p.style.background=["#16a34a","#f59e0b","#60a5fa","#f472b6"][i%4];p.style.setProperty("--dx",`${Math.cos(a)*dist}px`);p.style.setProperty("--dy",`${Math.sin(a)*dist}px`);btn.appendChild(p);setTimeout(()=>p.remove(),760)
@@ -301,7 +437,7 @@ function floatFx(btn,delta,t){
   }
 }
 function bigEvent(t){
-  const wrap=document.querySelector(".wrap"),e=document.createElement("div");e.className="big-event";e.innerHTML=`<div class="panel"><div class="emoji">${t.icon}</div><div class="headline">${t.event||"TASK CLEAR"}</div><div class="caption">${t.comic}</div></div>`;wrap.appendChild(e);setTimeout(()=>e.remove(),2250)
+  const wrap=document.querySelector(".wrap"),e=document.createElement("div");e.className="big-event";e.innerHTML=`<div class="panel"><div class="emoji">${t.icon}</div><div class="headline">${t.event||"TASK CLEAR"}</div><div class="caption">${t.comic}</div></div>`;wrap.appendChild(e);setTimeout(()=>e.remove(),3900)
 }
 function megaEvent(kind){const old=document.querySelector(".mega-event");if(old)old.remove();const e=document.createElement("div");e.className="mega-event "+(kind==="clean"?"clean":"victory");e.innerHTML=kind==="clean"?`<div class="mega-panel"><div class="mega-emoji">💥🧹💥</div><div class="mega-title">CLEANING BOSS DEFEATED!</div><div class="mega-sub">ホコリ帝国、完全崩壊。</div><div class="mega-flash">HOUSE RESTORED</div></div>`:`<div class="mega-panel"><div class="mega-emoji">🏆🔥🏆</div><div class="mega-title">COMPLETE VICTORY!</div><div class="mega-sub">NEW WORLD — 全タスク制圧。</div><div class="mega-flash">ABSOLUTE WIN</div></div>`;document.body.appendChild(e);setTimeout(()=>e.remove(),4600)}
 function confetti(){
@@ -396,9 +532,15 @@ function render(){
   document.getElementById("todayLabel").textContent=fmtDate(new Date());
   renderDaily();renderSleep();renderClean();renderStats();renderBadges();renderHistory();renderSound()
 }
-document.getElementById("soundBtn").addEventListener("click",()=>{state.settings.sound=!soundOn();save();renderSound();if(soundOn()){toast("🔊 効果音 ON");playTaskAudio("english")}else{stopAllAudio()}});
+document.getElementById("soundBtn").addEventListener("click",()=>{state.settings.sound=!soundOn();save();renderSound();if(soundOn()){toast("🔊 音声・効果音 ON")}else{stopAllAudio();toast("🔇 音声・効果音 OFF")}});
 document.getElementById("victoryTestBtn").addEventListener("click",()=>{confetti();playCompleteVictory()});
 document.getElementById("cleanTestBtn").addEventListener("click",()=>{confetti();playCleaningComplete()});
+document.getElementById("seTestBtn").addEventListener("click",async()=>{
+  if(!soundOn()){toast("先に 🔇 OFF を ON にしてください");return}
+  stopAllAudio();toast("💨 SEテスト");
+  await playClip("s:fart",{maxMs:1500});
+  await playClip("s:explosion",{maxMs:1700})
+});
 document.getElementById("exportBtn").addEventListener("click",()=>{
   const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");
   a.href=URL.createObjectURL(blob);a.download=`NEW_WORLD_backup_${ymd()}.json`;a.click();URL.revokeObjectURL(a.href);toast("💾 バックアップを書き出しました")
