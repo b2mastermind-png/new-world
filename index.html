@@ -128,7 +128,7 @@ input[type=file]{max-width:100%;margin-top:9px}
 }
 .toast.show{opacity:1;transform:translateY(0)}
 
-.mega-event{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:rgba(5,8,18,.78);backdrop-filter:blur(5px);pointer-events:none;animation:megaBg 4.5s ease-out forwards}.mega-event .mega-panel{width:min(90vw,620px);margin:16px;border:3px solid rgba(255,255,255,.28);border-radius:30px;padding:28px 20px;background:linear-gradient(145deg,#111827,#272f45);color:#fff;text-align:center;box-shadow:0 0 0 8px rgba(245,158,11,.18),0 24px 70px rgba(0,0,0,.55);animation:megaPanel 4.5s cubic-bezier(.16,.9,.22,1.05) forwards}.mega-event.clean .mega-panel{box-shadow:0 0 0 8px rgba(34,197,94,.20),0 24px 70px rgba(0,0,0,.55)}.mega-event .mega-emoji{font-size:64px;line-height:1}.mega-event .mega-title{font-size:29px;font-weight:1000;letter-spacing:.03em;margin-top:12px}.mega-event .mega-sub{font-size:14px;opacity:.82;margin-top:8px;font-weight:800}.mega-event .mega-flash{font-size:13px;margin-top:16px;letter-spacing:.16em;color:#fde68a;font-weight:900}@keyframes megaBg{0%{opacity:0}8%,82%{opacity:1}100%{opacity:0}}@keyframes megaPanel{0%{transform:scale(.52) rotate(-5deg)}12%{transform:scale(1.08) rotate(1.5deg)}25%{transform:scale(.99)}70%{transform:scale(1)}100%{transform:scale(.86);opacity:.15}}
+.mega-event{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:rgba(5,8,18,.78);backdrop-filter:blur(5px);pointer-events:none;animation:megaBg 6.2s ease-out forwards}.mega-event .mega-panel{width:min(90vw,620px);margin:16px;border:3px solid rgba(255,255,255,.28);border-radius:30px;padding:28px 20px;background:linear-gradient(145deg,#111827,#272f45);color:#fff;text-align:center;box-shadow:0 0 0 8px rgba(245,158,11,.18),0 24px 70px rgba(0,0,0,.55);animation:megaPanel 6.2s cubic-bezier(.16,.9,.22,1.05) forwards}.mega-event.clean .mega-panel{box-shadow:0 0 0 8px rgba(34,197,94,.20),0 24px 70px rgba(0,0,0,.55)}.mega-event .mega-emoji{font-size:64px;line-height:1}.mega-event .mega-title{font-size:29px;font-weight:1000;letter-spacing:.03em;margin-top:12px}.mega-event .mega-sub{font-size:14px;opacity:.82;margin-top:8px;font-weight:800}.mega-event .mega-flash{font-size:13px;margin-top:16px;letter-spacing:.16em;color:#fde68a;font-weight:900}@keyframes megaBg{0%{opacity:0}8%,82%{opacity:1}100%{opacity:0}}@keyframes megaPanel{0%{transform:scale(.52) rotate(-5deg)}12%{transform:scale(1.08) rotate(1.5deg)}25%{transform:scale(.99)}70%{transform:scale(1)}100%{transform:scale(.86);opacity:.15}}
 @media(max-width:370px){.badges{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
@@ -167,7 +167,7 @@ input[type=file]{max-width:100%;margin-top:9px}
   <section class="hero" id="hero">
     <div class="hero-top">
       <div>
-        <div class="title">🌍 NEW WORLD <span class="ver">v7</span></div>
+        <div class="title">🌍 NEW WORLD <span class="ver">v8</span></div>
         <div class="date" id="todayLabel"></div>
       </div>
       <div class="sound-row"><button class="sound-btn" id="soundBtn" type="button" aria-pressed="true">🔊 ON</button><button class="sound-btn" id="victoryTestBtn" type="button">🏆 音</button><button class="sound-btn" id="cleanTestBtn" type="button">🧹 音</button><button class="sound-btn" id="seTestBtn" type="button">💨 SE</button></div>
@@ -234,23 +234,23 @@ input[type=file]{max-width:100%;margin-top:9px}
   </section>
 
   <div class="toast" id="toast" aria-live="polite"></div>
-  <div class="footer">NEW WORLD Dashboard v7 · HQ VOICE + iPHONE MP3 SE</div>
+  <div class="footer">NEW WORLD Dashboard v8 · MAX ENERGY VOICE + iPHONE MP3 SE</div>
 </div>
 
 <script>
 const DAILY=[
-  {id:"duolingo",icon:"🇫🇷",label:"Duolingo",base:745,comic:"BONJOUUUR!! OUI OUI!! BAGUETTE POWER!!",sound:"duolingo",fly:["🇫🇷","🥐","🔥"],event:"FRENCH CHAOS +1"},
-  {id:"english",icon:"🗣️",label:"ChatGPT 英会話",base:0,comic:"YO!! ENGLISH MODE, MOTHERFUCKER!!",sound:"english",fly:["🎤","💬","🔥"],event:"ENGLISH MODE: ON"},
-  {id:"bbc",icon:"🎧",label:"BBC 6 Minutes English",base:0,comic:"BBCて！どこの貴族やねん！紅茶でも飲んどけぇ！",sound:"bbc",fly:["📡","🇬🇧","☕"],event:"BBC 6 MINUTES CLEAR"},
+  {id:"duolingo",icon:"🇫🇷",label:"Duolingo",base:745,comic:"BONJOURRRR!! OUI OUI OUI!! BAGUETTE OVERDRIVE!! J’ADOOOORE!!",sound:"duolingo",fly:["🇫🇷","🥐","🔥"],event:"FRENCH CHAOS +1"},
+  {id:"english",icon:"🗣️",label:"ChatGPT 英会話",base:0,comic:"Y’ALL HEAR THAT?! ENGLISH MODE, BITCH!!",sound:"english",fly:["🎤","💬","🔥"],event:"ENGLISH MODE: ON"},
+  {id:"bbc",icon:"🎧",label:"BBC 6 Minutes English",base:0,comic:"BBCやぞBBC!! どこの貴族やねん!! 紅茶持ってこぉぉい!!",sound:"bbc",fly:["📡","🇬🇧","☕"],event:"BBC 6 MINUTES CLEAR"},
   {id:"book",icon:"📚",label:"投資本",base:0,comic:"かしこなってまうやないか！複利や！複利！",sound:"book",fly:["📖","🧠","💰"],event:"KNOWLEDGE +1"}
 ];
-const SLEEP={id:"sleep",icon:"🌙",label:"睡眠タスク",base:0,comic:"ちゃんと寝たんかい！えらいやんけぇ！",sound:"sleep",fly:["🌙","💤","🛏️"],event:"SLEEP RECOVERED"};
+const SLEEP={id:"sleep",icon:"🌙",label:"睡眠タスク",base:0,comic:"ちゃんと寝たんかい!! えらいやんけぇぇ!! ベッド直行や!!",sound:"sleep",fly:["🌙","💤","🛏️"],event:"SLEEP RECOVERED"};
 const ALL=[...DAILY,SLEEP];
 const CLEAN=[
   {id:"trash",icon:"🗑️",label:"ごみを集めて捨てる",comic:"RUBBISH! YOU MOTHERFUCKING PIECE OF SHIT!",sound:"trash",fly:["🗑️","💥","💨"],event:"GET IN THE BIN!"},
   {id:"toilet",icon:"🚽",label:"トイレを簡単に掃除する",comic:"便所ピッカピカやんけ！王座復活やぁ！",sound:"toilet",fly:["🚽","👑","💦"],event:"ROYAL THRONE RESTORED"},
   {id:"table",icon:"🧺",label:"テーブル・キッチンを片付ける",comic:"テーブル見えとるやないか！奇跡や！",sound:"table",fly:["🧺","📦","✨"],event:"SURFACE UNLOCKED"},
-  {id:"floor",icon:"🧹",label:"リビング・廊下の床を掃除する",comic:"ゆかァァァ！これで床上手（とこじょうず）やな！…床掃除の話やで！",sound:"floor",fly:["🧹","💨","😏"],event:"FLOOR BOSS DOWN"},
+  {id:"floor",icon:"🧹",label:"リビング・廊下の床を掃除する",comic:"ゆかァァァ!! これで床上手（とこじょうず）やな!! …ゆか掃除の話やで!!",sound:"floor",fly:["🧹","💨","😏"],event:"FLOOR BOSS DOWN"},
   {id:"sink",icon:"🧽",label:"キッチン・シンク周りを拭く",comic:"これシンクちゃうぞ、鏡や！男前やな！知らんけど！",sound:"sink",fly:["🧽","💧","✨"],event:"SINK SHINE MAX"},
   {id:"oneplace",icon:"✨",label:"気になる場所を1か所整える",comic:"誰にも頼まれてへんのに！？…いやァァ！めっちゃ偉いやんけぇぇ！！",sound:"secret",fly:["🎲","✨","🏅"],event:"SECRET QUEST CLEAR"}
 ];
@@ -294,7 +294,7 @@ function duoTotal(){return state.meta.duoBase+taskCount("duolingo")}
 function snapshot(){return {victory:victoryCount(),streak:currentStreak(),duo:duoTotal(),clean:cleanCount()}}
 
 function soundOn(){return state.settings.sound!==false}
-const VOICE_URLS={"duolingo":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/4b1de1582d2c477485ad2e0c2717f0ff/id=f06e1a62-9db3-4e88-8d15-94de0d7ac3a4.wav","english":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=a5fb24cf-985f-4efb-8311-9a8b817c04f4.wav","bbc":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=49804216-7307-45e1-8f09-96f10bf9f0de.wav","book":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=98c89ebb-3c80-4d9f-a5cd-5871ef23a3ed.wav","sleep":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=c57cc95a-91ca-4e85-9df6-43c6fc6086d6.wav","trash":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=99c0e4bc-d12c-478e-9deb-c379236c73e2.wav","toilet":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=fd33c480-01c1-40a9-8bef-5bd706b89ac4.wav","table":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=1c930785-a352-47fd-824c-2541a917cbc3.wav","floor":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=d2ade543-dce8-4589-b020-111416f3782a.wav","sink":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=6a511596-07c0-4626-8d71-740bb67f6cce.wav","secret":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=af9b5988-a1b2-4ef1-b72b-75bd78f22e50.wav","cleanBoss":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=d63ff85e-06f4-4b4a-bd15-5d7b814f1045.wav","cleanHero":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=8c057fe4-87b3-44a1-b6cb-551ef45d5257.wav","victoryMale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/06c816b952f14fa9b3a6c42aa151f731/id=88052343-93f9-4b68-bb4d-a71cd2afdd35.wav","victoryFemale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/79e05a1d6a81453a8c05e43cd4bc5960/id=d7a3a9de-5380-49ba-98a5-72a715f13dc2.wav"};
+const VOICE_URLS={"duolingo":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/4b1de1582d2c477485ad2e0c2717f0ff/id=7aaa17db-8399-4b29-8cba-288f86aa66fd.wav","english":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/2f42008afd834b279bd19d4caad5d76e/id=ce26ec7a-1b11-4f54-9f71-a8ce74a8140d.wav","bbc":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=de6fd26f-c45a-4c18-bd57-e436c9f91f5d.wav","book":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=98c89ebb-3c80-4d9f-a5cd-5871ef23a3ed.wav","sleep":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=df6d770a-5101-4b8f-84ed-f6d10ed30b8d.wav","trash":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/0dd34c3eb79247238219eea35aeb58cd/id=99c0e4bc-d12c-478e-9deb-c379236c73e2.wav","toilet":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=fd33c480-01c1-40a9-8bef-5bd706b89ac4.wav","table":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=1c930785-a352-47fd-824c-2541a917cbc3.wav","floor":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=eb2c3a26-d0aa-4593-b586-68371482227a.wav","sink":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=6a511596-07c0-4626-8d71-740bb67f6cce.wav","secret":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=af9b5988-a1b2-4ef1-b72b-75bd78f22e50.wav","cleanBoss":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/9aa98f478ac94b3a85272470dff2aae4/id=d63ff85e-06f4-4b4a-bd15-5d7b814f1045.wav","cleanHero":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/38209693fc4749748a0a298ef67e3860/id=9d24485f-8fac-44df-a340-426d52773cd3.wav","victoryMale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/24ec3736b0ef4c67a1c635794629679e/id=b1ded86f-ffcc-48b6-871d-a200ef54d931.wav","victoryFemale":"https://resource2.heygen.ai/text_to_speech/32d1b7be6f454f61ac76d5803c28dec6/79e05a1d6a81453a8c05e43cd4bc5960/id=d7a3a9de-5380-49ba-98a5-72a715f13dc2.wav"};
 const SE_URLS={"glass":"https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/Binging_glass.ogg/Binging_glass.ogg.mp3","applause":"https://upload.wikimedia.org/wikipedia/commons/transcoded/0/09/Applause_ii.ogg/Applause_ii.ogg.mp3","coins":"https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e6/Coins_dropped_in_metallic_moneybox_0.ogg/Coins_dropped_in_metallic_moneybox_0.ogg.mp3","snore":"https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fe/Joseph_Sardin_-_Ronflements.oga/Joseph_Sardin_-_Ronflements.oga.mp3","bin":"https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Cupboarddoorclose.ogg/Cupboarddoorclose.ogg.mp3","flush":"https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a7/Toilet_flush2.ogg/Toilet_flush2.ogg.mp3","fart":"https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/Fart.ogg/Fart.ogg.mp3","vacuum":"https://upload.wikimedia.org/wikipedia/commons/transcoded/7/78/A_vacuum_cleaner_manufactured_by_Miele,_purchased_2013.webm/A_vacuum_cleaner_manufactured_by_Miele,_purchased_2013.webm.mp3","sinkWater":"https://upload.wikimedia.org/wikipedia/commons/transcoded/1/10/Tapsinkwaternoise.ogg/Tapsinkwaternoise.ogg.mp3","drawer":"https://upload.wikimedia.org/wikipedia/commons/transcoded/6/67/Wooden_desk_drawer.ogg/Wooden_desk_drawer.ogg.mp3","explosion":"https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b9/Explosion-LS100155.ogg/Explosion-LS100155.ogg.mp3","bell":"https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9a/Old_school_bell_1.ogg/Old_school_bell_1.ogg.mp3"};
 const AUDIO={};
 let audioCtx=null,voiceGain=null,compressor=null;
@@ -384,6 +384,22 @@ function playClip(key,opts={}){
     },delay)
   })
 }
+
+function playArenaEcho(url){
+  const echoes=[{delay:115,vol:.16},{delay:235,vol:.08}];
+  echoes.forEach(e=>{
+    setTimeout(()=>{
+      try{
+        const a=new Audio(url);
+        a.preload="auto";
+        a.volume=e.vol;
+        a.play().catch(()=>{});
+        setTimeout(()=>{try{a.pause()}catch(_e){}},9000)
+      }catch(_e){}
+    },e.delay)
+  })
+}
+
 async function playTaskAudio(id){
   if(!soundOn())return;
   stopAllAudio();
@@ -410,16 +426,17 @@ async function playCleaningComplete(){
   await playClip("v:cleanBoss");
   await playClip("s:explosion",{maxMs:1700});
   await playClip("v:cleanHero");
-  await playClip("s:applause",{maxMs:2200})
+  await playClip("s:applause",{maxMs:5200})
 }
 async function playCompleteVictory(){
   if(!soundOn())return;
   stopAllAudio();
   megaEvent("victory");
   await playClip("s:bell",{maxMs:1200});
+  playArenaEcho(VOICE_URLS.victoryMale);
   await playClip("v:victoryMale");
   await playClip("v:victoryFemale");
-  await playClip("s:applause",{maxMs:3200})
+  await playClip("s:applause",{maxMs:5200})
 }
 function vibrate(pattern){if("vibrate"in navigator)navigator.vibrate(pattern)}
 
@@ -439,7 +456,7 @@ function floatFx(btn,delta,t){
 function bigEvent(t){
   const wrap=document.querySelector(".wrap"),e=document.createElement("div");e.className="big-event";e.innerHTML=`<div class="panel"><div class="emoji">${t.icon}</div><div class="headline">${t.event||"TASK CLEAR"}</div><div class="caption">${t.comic}</div></div>`;wrap.appendChild(e);setTimeout(()=>e.remove(),3900)
 }
-function megaEvent(kind){const old=document.querySelector(".mega-event");if(old)old.remove();const e=document.createElement("div");e.className="mega-event "+(kind==="clean"?"clean":"victory");e.innerHTML=kind==="clean"?`<div class="mega-panel"><div class="mega-emoji">💥🧹💥</div><div class="mega-title">CLEANING BOSS DEFEATED!</div><div class="mega-sub">ホコリ帝国、完全崩壊。</div><div class="mega-flash">HOUSE RESTORED</div></div>`:`<div class="mega-panel"><div class="mega-emoji">🏆🔥🏆</div><div class="mega-title">COMPLETE VICTORY!</div><div class="mega-sub">NEW WORLD — 全タスク制圧。</div><div class="mega-flash">ABSOLUTE WIN</div></div>`;document.body.appendChild(e);setTimeout(()=>e.remove(),4600)}
+function megaEvent(kind){const old=document.querySelector(".mega-event");if(old)old.remove();const e=document.createElement("div");e.className="mega-event "+(kind==="clean"?"clean":"victory");e.innerHTML=kind==="clean"?`<div class="mega-panel"><div class="mega-emoji">💥🧹💥</div><div class="mega-title">CLEANING BOSS DEFEATED!</div><div class="mega-sub">ホコリ帝国、完全崩壊。</div><div class="mega-flash">HOUSE RESTORED</div></div>`:`<div class="mega-panel"><div class="mega-emoji">🏆🔥🏆</div><div class="mega-title">COMPLETE VICTORY!</div><div class="mega-sub">NEW WORLD — 全タスク制圧。</div><div class="mega-flash">ABSOLUTE WIN</div></div>`;document.body.appendChild(e);setTimeout(()=>e.remove(),6300)}
 function confetti(){
   const h=document.getElementById("hero");
   for(let i=0;i<42;i++){
